@@ -1,4 +1,4 @@
-# MedGemma 4B Fine-tuning with LoRA
+# MedGemma 27B Fine-tuning with LoRA
 
 This project demonstrates how to fine-tune the MedGemma 4B Multimodal model using LoRA (Low-Rank Adaptation) on medical question-answering data.
 
