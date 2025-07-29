@@ -94,7 +94,7 @@ class MedGemmaTrainer:
         except Exception as e:
             print(f"❌ 認證失敗: {e}")
             print("\n🔧 請按照以下步驟進行認證:")
-            print("1. 前往 https://huggingface.co/google/medgemma-4b-multimodal")
+            print("1. 前往 https://huggingface.co/google/medgemma-27b-multimodal")
             print("2. 點擊 'Request Access' 並接受授權協議")
             print("3. 等待審核通過")
             print("4. 設置環境變數: export HUGGINGFACE_HUB_TOKEN='your_token'")
@@ -307,7 +307,7 @@ class MedGemmaTrainer:
         """保存微調模型"""
         print("\n💾 保存微調模型...")
         
-        output_dir = self.config.get('model_output_dir', "./finetuned_medgemma_4b")
+        output_dir = self.config.get('model_output_dir', "./finetuned_medgemma_27b")
         
         # 保存模型和 tokenizer
         self.model.save_pretrained(output_dir)
@@ -360,7 +360,7 @@ class MedGemmaTrainer:
             torch_dtype=torch.bfloat16,
         )
         
-        output_dir = self.config.get('model_output_dir', "./finetuned_medgemma_4b")
+        output_dir = self.config.get('model_output_dir', "./finetuned_medgemma_27b")
         finetuned_model = PeftModel.from_pretrained(base_model, output_dir)
         finetuned_model.eval()
         
@@ -447,7 +447,7 @@ def main():
     parser.add_argument("--config", type=str, default="config.json", help="配置文件路徑")
     parser.add_argument("--data_path", type=str, default="medquad.csv", help="數據集路徑")
     parser.add_argument("--output_dir", type=str, default="./results", help="輸出目錄")
-    parser.add_argument("--model_output_dir", type=str, default="./finetuned_medgemma_4b", help="模型輸出目錄")
+    parser.add_argument("--model_output_dir", type=str, default="./finetuned_medgemma_27b", help="模型輸出目錄")
     parser.add_argument("--sample_size", type=int, default=2000, help="數據集樣本大小")
     parser.add_argument("--batch_size", type=int, default=4, help="批次大小")
     parser.add_argument("--max_length", type=int, default=512, help="最大序列長度")
@@ -458,7 +458,7 @@ def main():
     
     # 默認配置
     config = {
-        'model_id': 'google/medgemma-4b-multimodal',
+        'model_id': 'google/medgemma-27b-multimodal',
         'data_path': args.data_path,
         'output_dir': args.output_dir,
         'model_output_dir': args.model_output_dir,

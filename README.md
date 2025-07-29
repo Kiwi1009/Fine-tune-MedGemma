@@ -57,7 +57,7 @@ Fine-tune-MedGemma/
 │
 └── 📁 輸出目錄 (訓練時生成)
     ├── ./results/                         # 訓練結果和日誌
-    └── ./finetuned_medgemma_4b/          # 微調模型輸出
+    └── ./finetuned_medgemma_27b/          # 微調模型輸出
 ```
 
 ### 🔧 核心組件說明
@@ -106,10 +106,10 @@ class MedGemmaTrainer:
 #### 2. 配置管理 (`config.json`)
 ```json
 {
-  "model_id": "google/medgemma-4b-multimodal",
+  "model_id": "google/medgemma-27b-multimodal",
   "data_path": "medquad.csv",
   "output_dir": "./results",
-  "model_output_dir": "./finetuned_medgemma_4b",
+  "model_output_dir": "./finetuned_medgemma_27b",
   "sample_size": 2000,
   "batch_size": 4,
   "max_length": 512,
@@ -357,7 +357,7 @@ if torch.cuda.is_available():
 ### 🔐 模型存取設置
 
 #### 1. 申請 MedGemma 存取權限
-1. 前往 [MedGemma 模型頁面](https://huggingface.co/google/medgemma-4b-multimodal)
+1. 前往 [MedGemma 模型頁面](https://huggingface.co/google/medgemma-27b-multimodal)
 2. 點擊 "Request Access" 申請存取權限
 3. 接受授權協議
 4. 等待審核通過 (通常需要幾分鐘到幾小時)
@@ -405,7 +405,7 @@ python train_medgemma_27b.py --batch_size 2 --sample_size 1000 --num_epochs 2
 #### 模型配置
 | 參數 | 說明 | 預設值 | 建議範圍 |
 |------|------|--------|----------|
-| `model_id` | 基礎模型 ID | `google/medgemma-4b-multimodal` | - |
+| `model_id` | 基礎模型 ID | `google/medgemma-27b-multimodal` | - |
 | `sample_size` | 訓練樣本數量 | 2000 | 1000-5000 |
 | `batch_size` | 批次大小 | 4 | 1-8 |
 | `max_length` | 最大序列長度 | 512 | 256-1024 |
@@ -446,11 +446,11 @@ from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # 載入基礎模型
-base_model = AutoModelForCausalLM.from_pretrained("google/medgemma-4b-multimodal")
-tokenizer = AutoTokenizer.from_pretrained("google/medgemma-4b-multimodal")
+base_model = AutoModelForCausalLM.from_pretrained("google/medgemma-27b-multimodal")
+tokenizer = AutoTokenizer.from_pretrained("google/medgemma-27b-multimodal")
 
 # 載入 LoRA 適配器
-finetuned_model = PeftModel.from_pretrained(base_model, "./finetuned_medgemma_4b")
+finetuned_model = PeftModel.from_pretrained(base_model, "./finetuned_medgemma_27b")
 ```
 
 #### 2. 生成醫療回答
